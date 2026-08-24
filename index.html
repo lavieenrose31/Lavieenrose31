@@ -387,11 +387,12 @@
   .checkout-btn{ width:100%; padding:15px 0; background:var(--lime); color:#0B0710; border:none; border-radius:26px; font-family:'IBM Plex Mono', monospace; font-size:13px; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; cursor:pointer; }
   .checkout-btn:disabled{ background:var(--line); color:var(--ink-soft); }
   .fallback-note{ font-size:10px; color:var(--ink-soft); text-align:center; margin-top:10px; font-family:'IBM Plex Mono', monospace; }
+#cartbar{display:none !important;}
 </style>
 </head>
-<body>
+<body><div id="introSplash" style="position:fixed;inset:0;z-index:999;background:#0B0710;display:flex;align-items:center;justify-content:center;transition:opacity .6s ease;overflow:hidden;"><img id="introSplashImg" alt="" style="width:100%;height:100%;object-fit:cover;transform:scale(1.06);transition:transform 1.1s ease;"></div><script>window.__showIntroSplash = function(src){var el = document.getElementById("introSplash");if (!el) return;if (!src){ el.style.display = "none"; return; }var img = document.getElementById("introSplashImg");img.src = src;setTimeout(function(){ img.style.transform = "scale(1)"; }, 30);setTimeout(function(){ el.style.opacity = "0"; setTimeout(function(){ el.style.display = "none"; }, 650); }, 1400);};</script>
 
-<header>
+<header><button id="headerCartBtn" style="position:absolute;top:16px;right:16px;z-index:5;background:rgba(11,7,16,.55);border:1.5px solid rgba(255,255,255,.18);color:#fff;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;">🛒<span id="headerCartBadge" class="hidden" style="position:absolute;top:-4px;right:-4px;background:#FF2E9A;color:#fff;font-size:10px;font-weight:700;min-width:18px;height:18px;border-radius:9px;display:flex;align-items:center;justify-content:center;padding:0 4px;">0</span></button>
   <img id="shopLogo" class="hidden" alt="" style="width:44px;height:44px;border-radius:12px;object-fit:cover;margin-bottom:10px;box-shadow:0 6px 18px rgba(0,0,0,0.35);">
   <div class="eyebrow" id="eyebrowText"></div>
   <h1 class="logo" id="shopNameText"></h1>
@@ -527,6 +528,7 @@
   "logo": ""
 };
   WHATSAPP_NUMBER = CONFIG.whatsappNumber;
+  if (window.__showIntroSplash) window.__showIntroSplash(CONFIG.introImage);
 
   // ---- Categories affichees sur la page d'accueil ----
   // id    : identifiant technique, en minuscules et sans espace/accent
@@ -720,6 +722,9 @@
 
     overlayEl.classList.add('show');
     productSheet.classList.add('show');
+  
+    /*__VIDEO_PATCH__*/
+    if (p.video) { productMedia.innerHTML = '<video src="'+p.video+'" muted autoplay loop playsinline controls style="width:100%;height:100%;object-fit:cover;"></video>'; }
   }
   function closeProduct(){
     productSheet.classList.remove('show');
@@ -741,6 +746,8 @@
     var count = cartCount();
     var total = cartTotal();
     cartbarEl.classList.toggle('show', count > 0);
+    var headerCartBadgeEl = document.getElementById('headerCartBadge');
+    if (headerCartBadgeEl) { headerCartBadgeEl.textContent = count; headerCartBadgeEl.classList.toggle('hidden', count === 0); }
     cartCountEl.textContent = count + (count > 1 ? ' articles' : ' article');
     cartTotalEl.textContent = fmt(total);
     drawerTotalEl.textContent = fmt(total);
@@ -785,6 +792,8 @@
     if (!productSheet.classList.contains('show')) overlayEl.classList.remove('show');
   }
   document.getElementById('viewCartBtn').addEventListener('click', openDrawer);
+  var headerCartBtnEl = document.getElementById('headerCartBtn');
+  if (headerCartBtnEl) headerCartBtnEl.addEventListener('click', openDrawer);
   document.getElementById('closeDrawer').addEventListener('click', closeDrawer);
   document.getElementById('closeProduct').addEventListener('click', closeProduct);
   overlayEl.addEventListener('click', function(){ closeDrawer(); closeProduct(); });
