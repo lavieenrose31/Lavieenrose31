@@ -388,9 +388,33 @@
   .checkout-btn:disabled{ background:var(--line); color:var(--ink-soft); }
   .fallback-note{ font-size:10px; color:var(--ink-soft); text-align:center; margin-top:10px; font-family:'IBM Plex Mono', monospace; }
 #cartbar{display:none !important;}
+
+  .shop-intro{ position:fixed; inset:0; z-index:9999; display:flex; align-items:center; justify-content:center; background:var(--bg,#0B0710); overflow:hidden; }
+  .shop-intro-inner{ display:flex; flex-direction:column; align-items:center; gap:10px; text-align:center; padding:20px; position:relative; z-index:1; }
+  .shop-intro-emoji{ font-size:46px; line-height:1; }
+  .shop-intro-logo{ width:64px; height:64px; border-radius:16px; object-fit:cover; box-shadow:0 10px 30px rgba(0,0,0,0.35); }
+  .shop-intro-name{ font-family:'Baloo 2', sans-serif; font-weight:800; font-size:28px; color:var(--lime,#5CFF7A); text-shadow:0 0 14px rgba(92,255,122,0.45); }
+  .shop-intro.si-fade .shop-intro-inner{ animation:siFadeIn 500ms ease; }
+  .shop-intro.si-fade{ animation:siFadeOut var(--si-dur,1400ms) ease forwards; }
+  .shop-intro.si-pulse .shop-intro-inner{ animation:siPulse 900ms ease; }
+  .shop-intro.si-pulse{ animation:siFadeOut var(--si-dur,1600ms) ease forwards; }
+  .shop-intro.si-curtain{ background:transparent; }
+  .shop-intro.si-curtain::before, .shop-intro.si-curtain::after{ content:''; position:absolute; top:0; bottom:0; width:50%; background:var(--bg,#0B0710); }
+  .shop-intro.si-curtain::before{ left:0; animation:siCurtainLeft var(--si-dur,1400ms) ease forwards; }
+  .shop-intro.si-curtain::after{ right:0; animation:siCurtainRight var(--si-dur,1400ms) ease forwards; }
+  .shop-intro.si-curtain .shop-intro-inner{ animation:siFadeIn 400ms ease, siFadeOutQuick var(--si-dur,1400ms) ease forwards; }
+  @keyframes siFadeIn{ from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;} }
+  @keyframes siFadeOut{ 0%,70%{opacity:1;} 100%{opacity:0;} }
+  @keyframes siFadeOutQuick{ 0%,55%{opacity:1;} 100%{opacity:0;} }
+  @keyframes siPulse{ 0%{transform:scale(0.85); opacity:0;} 60%{transform:scale(1.06); opacity:1;} 100%{transform:scale(1);} }
+  @keyframes siCurtainLeft{ 0%,55%{transform:translateX(0);} 100%{transform:translateX(-100%);} }
+  @keyframes siCurtainRight{ 0%,55%{transform:translateX(0);} 100%{transform:translateX(100%);} }
 </style>
 </head>
-<body><div id="introSplash" style="position:fixed;inset:0;z-index:999;background:#0B0710;display:flex;align-items:center;justify-content:center;transition:opacity .6s ease;overflow:hidden;"><img id="introSplashImg" alt="" style="width:100%;height:100%;object-fit:cover;transform:scale(1.06);transition:transform 1.1s ease;"></div><script>window.__showIntroSplash = function(src){var el = document.getElementById("introSplash");if (!el) return;if (!src){ el.style.display = "none"; return; }var img = document.getElementById("introSplashImg");img.src = src;setTimeout(function(){ img.style.transform = "scale(1)"; }, 30);setTimeout(function(){ el.style.opacity = "0"; setTimeout(function(){ el.style.display = "none"; }, 650); }, 1400);};</script>
+<body>
+
+<div id="shopIntroOverlay" class="shop-intro"><div class="shop-intro-inner"><img id="shopIntroLogo" class="shop-intro-logo hidden" alt=""><div id="shopIntroEmoji" class="shop-intro-emoji hidden"></div><div class="shop-intro-name" id="shopIntroName"></div></div></div>
+
 
 <header><button id="headerCartBtn" style="position:absolute;top:16px;right:16px;z-index:5;background:rgba(11,7,16,.55);border:1.5px solid rgba(255,255,255,.18);color:#fff;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;">🛒<span id="headerCartBadge" class="hidden" style="position:absolute;top:-4px;right:-4px;background:#FF2E9A;color:#fff;font-size:10px;font-weight:700;min-width:18px;height:18px;border-radius:9px;display:flex;align-items:center;justify-content:center;padding:0 4px;">0</span></button>
   <img id="shopLogo" class="hidden" alt="" style="width:44px;height:44px;border-radius:12px;object-fit:cover;margin-bottom:10px;box-shadow:0 6px 18px rgba(0,0,0,0.35);">
@@ -525,10 +549,14 @@
       "text": "Un autre exemple d'avis, modifiable directement dans le fichier."
     }
   ],
-  "logo": ""
+  "logo": "",
+  "intro": {
+    "type": "fade",
+    "duration": 2500,
+    "emoji": "✨"
+  }
 };
   WHATSAPP_NUMBER = CONFIG.whatsappNumber;
-  if (window.__showIntroSplash) window.__showIntroSplash(CONFIG.introImage);
 
   // ---- Categories affichees sur la page d'accueil ----
   // id    : identifiant technique, en minuscules et sans espace/accent
@@ -836,6 +864,28 @@
 
   fallbackNote.style.display = 'block';
 
+    function initShopIntro(){
+    var box = document.getElementById('shopIntroOverlay');
+    if (!box) return;
+    var cfg = CONFIG.intro || {};
+    var type = cfg.type || 'none';
+    var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (type === 'none' || reduced){ box.remove(); return; }
+    var dur = Math.max(400, parseInt(cfg.duration, 10) || 1400);
+    box.style.setProperty('--si-dur', dur + 'ms');
+    box.classList.add('si-' + type);
+    document.getElementById('shopIntroName').textContent = CONFIG.shopName;
+    if (CONFIG.logo){
+      var img = document.getElementById('shopIntroLogo');
+      img.src = CONFIG.logo; img.classList.remove('hidden');
+    } else if (cfg.emoji){
+      var em = document.getElementById('shopIntroEmoji');
+      em.textContent = cfg.emoji; em.classList.remove('hidden');
+    }
+    setTimeout(function(){ box.remove(); }, dur + 150);
+  }
+
+  initShopIntro();
   renderHeader();
   renderInfo();
   renderLinks();
