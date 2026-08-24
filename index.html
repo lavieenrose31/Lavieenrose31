@@ -392,6 +392,7 @@
 <body>
 
 <header>
+  <img id="shopLogo" class="hidden" alt="" style="width:44px;height:44px;border-radius:12px;object-fit:cover;margin-bottom:10px;box-shadow:0 6px 18px rgba(0,0,0,0.35);">
   <div class="eyebrow" id="eyebrowText"></div>
   <h1 class="logo" id="shopNameText"></h1>
   <p class="tagline" id="taglineText"></p>
@@ -502,38 +503,40 @@
   //  Ne touche a rien d'autre dans le fichier, tout se passe ici.
   // ======================================================================
   var CONFIG = {
-
-    // ---- Identite de la boutique (visible en haut de l'ecran) ----
-    eyebrow:  'Boutique CBD',           // petit texte au-dessus du nom
-    shopName: 'Manoverde',              // nom affiche en grand
-    tagline:  "Fleurs, huiles et extraits selectionnes. Taux de THC conforme a la reglementation (moins de 0,3%).",
-
-    // ---- Contact ----
-    // Numero WhatsApp au format international, SANS le "+" et sans espaces
-    // Exemple : 33612345678 pour un numero francais 06 12 34 56 78
-    whatsappNumber: '33751727841',
-
-    // ---- Page "Infos" : un paragraphe par ligne ----
-    infoParagraphs: [
-      "Manoverde selectionne des produits CBD conformes a la reglementation francaise (taux de THC inferieur a 0,3%). Commande via la boutique, reglement et retrait a convenir avec nous.",
-      "Modifie ce texte avec tes propres informations : horaires, zone de livraison, conditions."
-    ],
-
-    // ---- Page "Liens" : un bouton par ligne ----
-    // Pour le bouton WhatsApp, mets url: 'whatsapp' -> il utilisera automatiquement
-    // le numero renseigne juste au-dessus, pas besoin de le repeter.
-    links: [
-      { label: 'Canal Telegram',   url: '#' },
-      { label: 'Instagram',        url: '#' },
-      { label: 'Contact WhatsApp', url: 'whatsapp' }
-    ],
-
-    // ---- Page "Avis" : un avis par ligne (stars de 1 a 5) ----
-    reviews: [
-      { stars: 5, text: "Exemple d'avis client a remplacer par les vrais retours." },
-      { stars: 5, text: "Un autre exemple d'avis, modifiable directement dans le fichier." }
-    ]
-  };
+  "eyebrow": "Boutique CBD",
+  "shopName": "Manoverde",
+  "tagline": "Fleurs, huiles et extraits selectionnes. Taux de THC conforme a la reglementation (moins de 0,3%).",
+  "whatsappNumber": "33751727841",
+  "infoParagraphs": [
+    "Manoverde selectionne des produits CBD conformes a la reglementation francaise (taux de THC inferieur a 0,3%). Commande via la boutique, reglement et retrait a convenir avec nous.",
+    "Modifie ce texte avec tes propres informations : horaires, zone de livraison, conditions."
+  ],
+  "links": [
+    {
+      "label": "Canal Telegram",
+      "url": "#"
+    },
+    {
+      "label": "Instagram",
+      "url": "#"
+    },
+    {
+      "label": "Contact WhatsApp",
+      "url": "whatsapp"
+    }
+  ],
+  "reviews": [
+    {
+      "stars": 5,
+      "text": "Exemple d'avis client a remplacer par les vrais retours."
+    },
+    {
+      "stars": 5,
+      "text": "Un autre exemple d'avis, modifiable directement dans le fichier."
+    }
+  ],
+  "logo": ""
+};
   WHATSAPP_NUMBER = CONFIG.whatsappNumber;
 
   // ---- Categories affichees sur la page d'accueil ----
@@ -545,12 +548,42 @@
   // glow  : couleur de fond en degrade — garde le format tel quel,
   //         change juste les 3 codes couleur (#xxxxxx)
   var CATS = [
-    { id:'fleurs', label:'Fleurs CBD', sub:'Cultures selectionnees', icon:'\u{1F33F}', glow:'linear-gradient(135deg, #123B1E, #1E5E31 55%, #5CFF7A)' },
-    { id:'huiles', label:'Huiles CBD', sub:'Full & broad spectrum', icon:'\u{1F4A7}', glow:'linear-gradient(135deg, #3A2A05, #7A4E0C 55%, #FFB020)' },
-    { id:'resines', label:'Resines CBD', sub:'Extraction a froid', icon:'\u{1F7E4}', glow:'linear-gradient(135deg, #2A0F3F, #5B2E7A 55%, #C24DFF)' },
-    { id:'infusions', label:'Infusions CBD', sub:'Boites de 20 sachets', icon:'\u{1F375}', glow:'linear-gradient(135deg, #052A33, #0C5A6B 55%, #2FE0FF)' },
-    { id:'cosmetiques', label:'Cosmetiques CBD', sub:'Soins et baumes', icon:'\u{1F9F4}', glow:'linear-gradient(135deg, #3A0A28, #7A1C57 55%, #FF2E9A)' },
-  ];
+  {
+    "id": "fleurs",
+    "label": "Fleurs CBD",
+    "sub": "Cultures selectionnees",
+    "icon": "🌿",
+    "glow": "linear-gradient(135deg, #123B1E, #1E5E31 55%, #5CFF7A)"
+  },
+  {
+    "id": "huiles",
+    "label": "Huiles CBD",
+    "sub": "Full & broad spectrum",
+    "icon": "💧",
+    "glow": "linear-gradient(135deg, #3A2A05, #7A4E0C 55%, #FFB020)"
+  },
+  {
+    "id": "resines",
+    "label": "Resines CBD",
+    "sub": "Extraction a froid",
+    "icon": "🟤",
+    "glow": "linear-gradient(135deg, #2A0F3F, #5B2E7A 55%, #C24DFF)"
+  },
+  {
+    "id": "infusions",
+    "label": "Infusions CBD",
+    "sub": "Boites de 20 sachets",
+    "icon": "🍵",
+    "glow": "linear-gradient(135deg, #052A33, #0C5A6B 55%, #2FE0FF)"
+  },
+  {
+    "id": "cosmetiques",
+    "label": "Cosmetiques CBD",
+    "sub": "Soins et baumes",
+    "icon": "🧴",
+    "glow": "linear-gradient(135deg, #3A0A28, #7A1C57 55%, #FF2E9A)"
+  }
+];
 
   // Couleur d'accent de chaque categorie, deduite automatiquement
   // du degrade "glow" ci-dessus (derniere couleur du degrade).
@@ -573,31 +606,167 @@
   // desc  : description affichee dans la fiche produit
   // tiers : liste des formats/quantites avec leur prix
   var PRODUCTS = [
-    { id:'p1', cat:'fleurs', icon:'\u{1F33F}', image:'', name:'Lemon Haze CBD', farm:'Culture France', cbd:'12%',
-      desc:"Aromes d'agrumes marques, tetes denses et bien formees, sechage lent pour preserver les terpenes.",
-      tiers:[{label:'3g',price:15},{label:'5g',price:22},{label:'10g',price:38},{label:'20g',price:65}] },
-    { id:'p2', cat:'fleurs', icon:'\u{1F33F}', image:'', name:'Purple Kush CBD', farm:'Culture France', cbd:'9%',
-      desc:"Notes fruits rouges et sous-bois, coloris violaces typiques, texture collante.",
-      tiers:[{label:'3g',price:14},{label:'5g',price:20},{label:'10g',price:36},{label:'20g',price:60}] },
-    { id:'p3', cat:'huiles', icon:'\u{1F4A7}', image:'', name:'Huile CBD Full Spectrum', farm:'Extraction CO2', cbd:'10%',
-      desc:"Flacon avec compte-gouttes, extrait complet de la plante, gout vegetal.",
-      tiers:[{label:'10ml',price:34},{label:'20ml',price:58}] },
-    { id:'p4', cat:'huiles', icon:'\u{1F4A7}', image:'', name:'Huile CBD Broad Spectrum', farm:'Extraction CO2', cbd:'5%',
-      desc:"Sans THC detectable, base neutre en huile de chanvre.",
-      tiers:[{label:'10ml',price:29}] },
-    { id:'p5', cat:'resines', icon:'\u{1F7E4}', image:'', name:'Resine Ice-O-Lator', farm:'Extraction a froid', cbd:'20%',
-      desc:"Texture fondante, tamisage fin, conservation au frais recommandee.",
-      tiers:[{label:'2g',price:24},{label:'5g',price:55}] },
-    { id:'p6', cat:'infusions', icon:'\u{1F375}', image:'', name:'Infusion CBD Camomille', farm:'Boite de 20 sachets', cbd:'',
-      desc:"Melange camomille et chanvre, a infuser 5 minutes.",
-      tiers:[{label:'Boite',price:9.9}] },
-    { id:'p7', cat:'infusions', icon:'\u{1F375}', image:'', name:'Infusion CBD Menthe', farm:'Boite de 20 sachets', cbd:'',
-      desc:"Melange menthe poivree et chanvre, arome frais.",
-      tiers:[{label:'Boite',price:9.9}] },
-    { id:'p8', cat:'cosmetiques', icon:'\u{1F9F4}', image:'', name:'Baume CBD apaisant', farm:'Usage local', cbd:'2%',
-      desc:"Pot 50ml, texture riche, a base de beurre de karite.",
-      tiers:[{label:'50ml',price:19.9}] },
-  ];
+  {
+    "id": "p1",
+    "cat": "fleurs",
+    "icon": "🌿",
+    "image": "",
+    "name": "Lemon Haze CBD",
+    "farm": "Culture France",
+    "cbd": "12%",
+    "desc": "Aromes d'agrumes marques, tetes denses et bien formees, sechage lent pour preserver les terpenes.",
+    "tiers": [
+      {
+        "label": "3g",
+        "price": 15
+      },
+      {
+        "label": "5g",
+        "price": 22
+      },
+      {
+        "label": "10g",
+        "price": 38
+      },
+      {
+        "label": "20g",
+        "price": 65
+      }
+    ]
+  },
+  {
+    "id": "p2",
+    "cat": "fleurs",
+    "icon": "🌿",
+    "image": "",
+    "name": "Purple Kush CBD",
+    "farm": "Culture France",
+    "cbd": "9%",
+    "desc": "Notes fruits rouges et sous-bois, coloris violaces typiques, texture collante.",
+    "tiers": [
+      {
+        "label": "3g",
+        "price": 14
+      },
+      {
+        "label": "5g",
+        "price": 20
+      },
+      {
+        "label": "10g",
+        "price": 36
+      },
+      {
+        "label": "20g",
+        "price": 60
+      }
+    ]
+  },
+  {
+    "id": "p3",
+    "cat": "huiles",
+    "icon": "💧",
+    "image": "",
+    "name": "Huile CBD Full Spectrum",
+    "farm": "Extraction CO2",
+    "cbd": "10%",
+    "desc": "Flacon avec compte-gouttes, extrait complet de la plante, gout vegetal.",
+    "tiers": [
+      {
+        "label": "10ml",
+        "price": 34
+      },
+      {
+        "label": "20ml",
+        "price": 58
+      }
+    ]
+  },
+  {
+    "id": "p4",
+    "cat": "huiles",
+    "icon": "💧",
+    "image": "",
+    "name": "Huile CBD Broad Spectrum",
+    "farm": "Extraction CO2",
+    "cbd": "5%",
+    "desc": "Sans THC detectable, base neutre en huile de chanvre.",
+    "tiers": [
+      {
+        "label": "10ml",
+        "price": 29
+      }
+    ]
+  },
+  {
+    "id": "p5",
+    "cat": "resines",
+    "icon": "🟤",
+    "image": "",
+    "name": "Resine Ice-O-Lator",
+    "farm": "Extraction a froid",
+    "cbd": "20%",
+    "desc": "Texture fondante, tamisage fin, conservation au frais recommandee.",
+    "tiers": [
+      {
+        "label": "2g",
+        "price": 24
+      },
+      {
+        "label": "5g",
+        "price": 55
+      }
+    ]
+  },
+  {
+    "id": "p6",
+    "cat": "infusions",
+    "icon": "🍵",
+    "image": "",
+    "name": "Infusion CBD Camomille",
+    "farm": "Boite de 20 sachets",
+    "cbd": "",
+    "desc": "Melange camomille et chanvre, a infuser 5 minutes.",
+    "tiers": [
+      {
+        "label": "Boite",
+        "price": 9.9
+      }
+    ]
+  },
+  {
+    "id": "p7",
+    "cat": "infusions",
+    "icon": "🍵",
+    "image": "",
+    "name": "Infusion CBD Menthe",
+    "farm": "Boite de 20 sachets",
+    "cbd": "",
+    "desc": "Melange menthe poivree et chanvre, arome frais.",
+    "tiers": [
+      {
+        "label": "Boite",
+        "price": 9.9
+      }
+    ]
+  },
+  {
+    "id": "p8",
+    "cat": "cosmetiques",
+    "icon": "🧴",
+    "image": "",
+    "name": "Baume CBD apaisant",
+    "farm": "Usage local",
+    "cbd": "2%",
+    "desc": "Pot 50ml, texture riche, a base de beurre de karite.",
+    "tiers": [
+      {
+        "label": "50ml",
+        "price": 19.9
+      }
+    ]
+  }
+];
 
   var cart = {};
   var activeCat = null;
@@ -652,6 +821,9 @@
     document.getElementById('shopNameText').textContent = CONFIG.shopName;
     document.getElementById('taglineText').textContent = CONFIG.tagline;
     document.title = CONFIG.shopName;
+  
+    var logoEl = document.getElementById('shopLogo');
+    if (logoEl) { if (CONFIG.logo) { logoEl.src = CONFIG.logo; logoEl.classList.remove('hidden'); } else { logoEl.classList.add('hidden'); } }
   }
 
   function renderInfo(){
