@@ -506,7 +506,7 @@
   "eyebrow": "Boutique de neige ⛄️ ",
   "shopName": "Lavieenrose",
   "tagline": "",
-  "whatsappNumber": "33751727841",
+  "whatsappNumber": "",
   "infoParagraphs": [],
   "links": [
     {
@@ -539,10 +539,10 @@
   var CATS = [
   {
     "id": "Cocaine",
-    "label": "Cocaine",
-    "sub": "",
-    "icon": "⛄️❄️",
-    "glow": "linear-gradient(135deg, #052A33, #0C5A6B 55%, #2FE0FF)"
+    "label": "Coca❄️",
+    "sub": "Écaille de poisson",
+    "icon": "⛄️",
+    "glow": "linear-gradient(135deg, #cbf0ff, #ebebeb 55%, #ffffff)"
   }
 ];
 
@@ -566,168 +566,7 @@
   // cbd   : taux affiche en badge (laisse '' pour ne pas afficher de badge)
   // desc  : description affichee dans la fiche produit
   // tiers : liste des formats/quantites avec leur prix
-  var PRODUCTS = [
-  {
-    "id": "p1",
-    "cat": "fleurs",
-    "icon": "🌿",
-    "image": "",
-    "name": "Lemon Haze CBD",
-    "farm": "Culture France",
-    "cbd": "12%",
-    "desc": "Aromes d'agrumes marques, tetes denses et bien formees, sechage lent pour preserver les terpenes.",
-    "tiers": [
-      {
-        "label": "3g",
-        "price": 15
-      },
-      {
-        "label": "5g",
-        "price": 22
-      },
-      {
-        "label": "10g",
-        "price": 38
-      },
-      {
-        "label": "20g",
-        "price": 65
-      }
-    ]
-  },
-  {
-    "id": "p2",
-    "cat": "fleurs",
-    "icon": "🌿",
-    "image": "",
-    "name": "Purple Kush CBD",
-    "farm": "Culture France",
-    "cbd": "9%",
-    "desc": "Notes fruits rouges et sous-bois, coloris violaces typiques, texture collante.",
-    "tiers": [
-      {
-        "label": "3g",
-        "price": 14
-      },
-      {
-        "label": "5g",
-        "price": 20
-      },
-      {
-        "label": "10g",
-        "price": 36
-      },
-      {
-        "label": "20g",
-        "price": 60
-      }
-    ]
-  },
-  {
-    "id": "p3",
-    "cat": "huiles",
-    "icon": "💧",
-    "image": "",
-    "name": "Huile CBD Full Spectrum",
-    "farm": "Extraction CO2",
-    "cbd": "10%",
-    "desc": "Flacon avec compte-gouttes, extrait complet de la plante, gout vegetal.",
-    "tiers": [
-      {
-        "label": "10ml",
-        "price": 34
-      },
-      {
-        "label": "20ml",
-        "price": 58
-      }
-    ]
-  },
-  {
-    "id": "p4",
-    "cat": "huiles",
-    "icon": "💧",
-    "image": "",
-    "name": "Huile CBD Broad Spectrum",
-    "farm": "Extraction CO2",
-    "cbd": "5%",
-    "desc": "Sans THC detectable, base neutre en huile de chanvre.",
-    "tiers": [
-      {
-        "label": "10ml",
-        "price": 29
-      }
-    ]
-  },
-  {
-    "id": "p5",
-    "cat": "resines",
-    "icon": "🟤",
-    "image": "",
-    "name": "Resine Ice-O-Lator",
-    "farm": "Extraction a froid",
-    "cbd": "20%",
-    "desc": "Texture fondante, tamisage fin, conservation au frais recommandee.",
-    "tiers": [
-      {
-        "label": "2g",
-        "price": 24
-      },
-      {
-        "label": "5g",
-        "price": 55
-      }
-    ]
-  },
-  {
-    "id": "p6",
-    "cat": "infusions",
-    "icon": "🍵",
-    "image": "",
-    "name": "Infusion CBD Camomille",
-    "farm": "Boite de 20 sachets",
-    "cbd": "",
-    "desc": "Melange camomille et chanvre, a infuser 5 minutes.",
-    "tiers": [
-      {
-        "label": "Boite",
-        "price": 9.9
-      }
-    ]
-  },
-  {
-    "id": "p7",
-    "cat": "infusions",
-    "icon": "🍵",
-    "image": "",
-    "name": "Infusion CBD Menthe",
-    "farm": "Boite de 20 sachets",
-    "cbd": "",
-    "desc": "Melange menthe poivree et chanvre, arome frais.",
-    "tiers": [
-      {
-        "label": "Boite",
-        "price": 9.9
-      }
-    ]
-  },
-  {
-    "id": "p8",
-    "cat": "cosmetiques",
-    "icon": "🧴",
-    "image": "",
-    "name": "Baume CBD apaisant",
-    "farm": "Usage local",
-    "cbd": "2%",
-    "desc": "Pot 50ml, texture riche, a base de beurre de karite.",
-    "tiers": [
-      {
-        "label": "50ml",
-        "price": 19.9
-      }
-    ]
-  }
-];
+  var PRODUCTS = [];
 
   var cart = {};
   var activeCat = null;
