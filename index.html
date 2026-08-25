@@ -418,9 +418,21 @@
   .tier-price-old{ text-decoration:line-through; opacity:0.55; font-size:11px; margin-right:4px; }
   .tier-price-promo{ color:var(--lime,#5CFF7A); }
   .promo-badge{ position:absolute; bottom:8px; left:8px; background:var(--pink,#FF2E9A); color:#fff; font-family:'IBM Plex Mono',monospace; font-size:9.5px; font-weight:700; padding:3px 8px; border-radius:20px; z-index:2; }
+
+  /*__PROMO_HOME_PATCH__*/
+  .promo-strip-label{ font-family:'IBM Plex Mono',monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:.08em; color:var(--pink,#FF2E9A); padding:16px 20px 0; }
+  .promo-strip-row{ display:flex; gap:10px; overflow-x:auto; padding:10px 20px 6px; -webkit-overflow-scrolling:touch; }
+  .promo-card{ flex:0 0 128px; background:var(--card,#1D1428); border:1.5px solid var(--pink,#FF2E9A); border-radius:14px; overflow:hidden; cursor:pointer; }
+  .promo-card .promo-card-media{ width:100%; height:96px; background:var(--card2,#241a33); display:flex; align-items:center; justify-content:center; font-size:26px; overflow:hidden; }
+  .promo-card .promo-card-media img{ width:100%; height:100%; object-fit:cover; }
+  .promo-card .promo-card-body{ padding:8px 10px 10px; }
+  .promo-card .promo-card-name{ font-size:11px; font-weight:700; line-height:1.25; margin-bottom:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .promo-card .promo-card-price{ font-family:'IBM Plex Mono',monospace; font-size:10px; }
+  .promo-card .promo-card-price .old{ text-decoration:line-through; opacity:0.55; margin-right:4px; }
+  .promo-card .promo-card-price .new{ color:var(--lime,#5CFF7A); font-weight:700; }
 </style>
 </head>
-<body><div id="introSplash" style="position:fixed;inset:0;z-index:999;background:#0B0710;overflow:hidden;"><img id="introSplashImg" alt="" style="display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"><div id="introCurtainL" style="display:none;position:absolute;top:0;left:0;width:50%;height:100%;overflow:hidden;"><img id="introCurtainImgL" alt="" style="position:absolute;top:0;left:0;width:200%;height:100%;object-fit:cover;"></div><div id="introCurtainR" style="display:none;position:absolute;top:0;right:0;width:50%;height:100%;overflow:hidden;"><img id="introCurtainImgR" alt="" style="position:absolute;top:0;right:0;width:200%;height:100%;object-fit:cover;"></div></div><script>window.__showIntroSplash = function(src, type, duration){var el = document.getElementById("introSplash");if (!el) return;if (!src){ el.style.display = "none"; return; }type = type || "fondu";var holdMs = Math.max(0, (Number(duration) || 2.5) * 1000);var imgEl = document.getElementById("introSplashImg");var lWrap = document.getElementById("introCurtainL"), rWrap = document.getElementById("introCurtainR");var lImg = document.getElementById("introCurtainImgL"), rImg = document.getElementById("introCurtainImgR");function reveal(){if (type === "rideau"){lWrap.style.transition = "transform .7s cubic-bezier(.6,0,.4,1)";rWrap.style.transition = "transform .7s cubic-bezier(.6,0,.4,1)";lWrap.style.transform = "translateX(-100%)";rWrap.style.transform = "translateX(100%)";setTimeout(function(){ el.style.display = "none"; }, 720);} else if (type === "zoom"){imgEl.style.transition = "transform .9s ease, opacity .6s ease .1s";imgEl.style.transform = "scale(1.18)";el.style.transition = "opacity .6s ease";el.style.opacity = "0";setTimeout(function(){ el.style.display = "none"; }, 700);} else {el.style.transition = "opacity .7s ease";el.style.opacity = "0";setTimeout(function(){ el.style.display = "none"; }, 720);}}if (type === "rideau"){lImg.src = src; rImg.src = src;lWrap.style.display = "block"; rWrap.style.display = "block";lWrap.style.transform = "translateX(0)"; rWrap.style.transform = "translateX(0)";} else {imgEl.src = src;imgEl.style.display = "block";imgEl.style.transform = "scale(1)";el.style.opacity = "1";}setTimeout(reveal, holdMs);};</script>
+<body><div id="introSplash" style="position:fixed;inset:0;z-index:999;background:#0B0710;overflow:hidden;"><img id="introSplashImg" alt="" style="display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"><div id="introSplashEmoji" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;font-size:130px;line-height:1;"></div><div id="introCurtainL" style="display:none;position:absolute;top:0;left:0;width:50%;height:100%;overflow:hidden;"><img id="introCurtainImgL" alt="" style="position:absolute;top:0;left:0;width:200%;height:100%;object-fit:cover;"></div><div id="introCurtainR" style="display:none;position:absolute;top:0;right:0;width:50%;height:100%;overflow:hidden;"><img id="introCurtainImgR" alt="" style="position:absolute;top:0;right:0;width:200%;height:100%;object-fit:cover;"></div></div><script>window.__showIntroSplash = function(src, type, duration, emoji){var el = document.getElementById("introSplash");if (!el) return;var useEmoji = !src && !!emoji;if (!src && !emoji){ el.style.display = "none"; return; }type = type || "fondu";if (useEmoji && type === "rideau") type = "fondu";var holdMs = Math.max(0, (Number(duration) || 2.5) * 1000);var imgEl = document.getElementById("introSplashImg");var emojiEl = document.getElementById("introSplashEmoji");var activeEl = useEmoji ? emojiEl : imgEl;var lWrap = document.getElementById("introCurtainL"), rWrap = document.getElementById("introCurtainR");var lImg = document.getElementById("introCurtainImgL"), rImg = document.getElementById("introCurtainImgR");function reveal(){if (type === "rideau"){lWrap.style.transition = "transform .7s cubic-bezier(.6,0,.4,1)";rWrap.style.transition = "transform .7s cubic-bezier(.6,0,.4,1)";lWrap.style.transform = "translateX(-100%)";rWrap.style.transform = "translateX(100%)";setTimeout(function(){ el.style.display = "none"; }, 720);} else if (type === "zoom"){activeEl.style.transition = "transform .9s ease, opacity .6s ease .1s";activeEl.style.transform = "scale(1.18)";el.style.transition = "opacity .6s ease";el.style.opacity = "0";setTimeout(function(){ el.style.display = "none"; }, 700);} else if (type === "flou"){activeEl.style.transition = "filter .75s ease";activeEl.style.filter = "blur(26px)";el.style.transition = "opacity .75s ease";el.style.opacity = "0";setTimeout(function(){ el.style.display = "none"; }, 760);} else if (type === "glisse"){el.style.transition = "transform .65s cubic-bezier(.6,0,.4,1)";el.style.transform = "translateY(-100%)";setTimeout(function(){ el.style.display = "none"; }, 680);} else if (type === "iris"){el.style.transition = "clip-path .7s cubic-bezier(.6,0,.4,1)";el.style.clipPath = "circle(0% at 50% 50%)";el.style.webkitClipPath = "circle(0% at 50% 50%)";setTimeout(function(){ el.style.display = "none"; }, 720);} else if (type === "rebond"){activeEl.style.transition = "transform .45s ease, opacity .45s ease";activeEl.style.transform = "scale(0.85)";el.style.transition = "opacity .45s ease .05s";el.style.opacity = "0";setTimeout(function(){ el.style.display = "none"; }, 500);} else {el.style.transition = "opacity .7s ease";el.style.opacity = "0";setTimeout(function(){ el.style.display = "none"; }, 720);}}if (type === "rideau"){lImg.src = src; rImg.src = src;lWrap.style.display = "block"; rWrap.style.display = "block";lWrap.style.transform = "translateX(0)"; rWrap.style.transform = "translateX(0)";} else {if (useEmoji){emojiEl.textContent = emoji;emojiEl.style.display = "flex";imgEl.style.display = "none";} else {imgEl.src = src;imgEl.style.display = "block";emojiEl.style.display = "none";}activeEl.style.filter = "blur(0px)";el.style.opacity = "1";el.style.clipPath = "none";el.style.webkitClipPath = "none";el.style.transform = "translateY(0)";if (type === "iris"){activeEl.style.transform = "scale(1)";el.style.clipPath = "circle(150% at 50% 50%)";el.style.webkitClipPath = "circle(150% at 50% 50%)";} else if (type === "rebond"){activeEl.style.transform = "scale(1.18)";setTimeout(function(){activeEl.style.transition = "transform .4s cubic-bezier(.34,1.56,.64,1)";activeEl.style.transform = "scale(1)";}, 30);} else {activeEl.style.transform = "scale(1)";}}setTimeout(reveal, holdMs);};</script>
 
 
 
@@ -433,6 +445,7 @@
 
 <!-- HOME: category banners only -->
 <div class="view" id="viewHome">
+  <div id="promoStrip" class="hidden"></div>
   <div class="banners" id="banners"></div>
 </div>
 
@@ -550,22 +563,23 @@
   "reviews": [
     {
       "stars": 5,
-      "text": "Exemple d'avis client a remplacer par les vrais retours."
+      "text": "qualité et prix défiant toute concurrence livraison super rapide et discrète je me fait livrer même au boulot"
     },
     {
       "stars": 5,
-      "text": "Un autre exemple d'avis, modifiable directement dans le fichier."
+      "text": "Le livreur est grave cool et produit incroyable je recommande à yeux fermé "
     }
   ],
-  "logo": "",
+  "logo": "produits/logo-lavieenrose.jpg",
   "intro": {
     "type": "fade",
     "duration": 2500,
     "emoji": "✨"
-  }
+  },
+  "introAnimType": "rebond"
 };
   WHATSAPP_NUMBER = CONFIG.whatsappNumber;
-  if (window.__showIntroSplash) window.__showIntroSplash(CONFIG.introImage, CONFIG.introAnimType, CONFIG.introDuration);
+  if (window.__showIntroSplash) window.__showIntroSplash(CONFIG.introImage, CONFIG.introAnimType, CONFIG.introDuration, CONFIG.introEmoji);
 
   // ---- Categories affichees sur la page d'accueil ----
   // id    : identifiant technique, en minuscules et sans espace/accent
